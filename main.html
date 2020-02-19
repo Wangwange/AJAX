@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <title>WEB</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <script src='js.js'></script>
+</head>
+
+<body>
+  <h1><a onclick="func('web')">WEB</a></h1>
+
+  <div id="grid">
+    <ol>
+    </ol>
+
+    <div>
+      <article>
+      </article>
+      <script>
+        if (location.hash) {
+          func(location.hash.substr(2));
+        } else {
+          func('web');
+        };
+        fetch('index').then(function(response){
+          response.text().then(function(text){
+            var items = text.split(',');
+            console.log(items)
+            var result = '';
+            var i = 0;
+            while (i < items.length) {
+              var item = items[i].trim();
+              console.log(item)
+              result = result + '<li><a href="#!' + item + '"; onclick="func(\'' + item + '\')";>' + item + '</a></li>'
+              console.log(result)
+              //<li><a href="#!cola"; onclick="func('cola')";>cola</a></li>
+              //'<li><a href="#!' + cola + '"; onclick="func(\'' + cola + '\')";>' + cola + '</a></li>'
+              i = i + 1;
+            };
+            document.querySelector('ol').innerHTML = result;
+          })
+        });
+      </script>
+    </div>
+  </div>
+</body>
+</html>
